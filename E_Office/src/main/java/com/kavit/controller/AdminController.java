@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kavit.dao.DepartmentRepo;
 import com.kavit.dao.EmployeeRepo;
 import com.kavit.dao.EmployeeTaskRepo;
+import com.kavit.dao.TrainingRoomRepo;
 import com.kavit.model.Department;
 import com.kavit.model.Employee;
 import com.kavit.model.EmployeeTask;
+import com.kavit.model.TrainingRoom;
 
 @RestController
 public class AdminController {
@@ -33,24 +35,27 @@ public class AdminController {
 	private JavaMailSender sender;
 	@Autowired
 	private EmployeeTaskRepo task;
+	@Autowired
+	private TrainingRoomRepo tRoom;
 	
 	@GetMapping("/")
 	String adminLogin() {
 		return "Welcome Admin. Go to \\\"localhost:8080/addDept\\\" to add an department, "
 				+ "or \"localhost:8080/addEmp\" to add an employee, "
-				+ "or \"localhost:8080/addTask\" to add a task";
+				+ "or \"localhost:8080/addTask\" to add a task, "
+				+ "or \"localhost:8080/addTrainingRoom\" to add a training room.";
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/addDept")
-	String add(@RequestBody Department newDept) {
+	public String add(@RequestBody Department newDept) {
 		department.save(newDept);
 		return "New department added";
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/addEmp")
-	String add(@RequestBody Employee newEmp) {
+	public String add(@RequestBody Employee newEmp) {
 		employee.save(newEmp);
 		MimeMessage message=sender.createMimeMessage();
 		MimeMessageHelper helper=new MimeMessageHelper(message);
@@ -70,7 +75,7 @@ public class AdminController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/addTask")
-	String add(@RequestBody EmployeeTask newTask) {
+	public String add(@RequestBody EmployeeTask newTask) {
 		task.save(newTask);
 		String empEmail= "19kavit@gmail.com";
 		MimeMessage message=sender.createMimeMessage();
@@ -89,5 +94,25 @@ public class AdminController {
 		sender.send(message);
 		return "New Task added for employee";
 	}
-	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/addTrainingRoom")
+	public String add(@RequestBody TrainingRoom newRoom) {
+		tRoom.save(newRoom);
+//		String empEmail= "19kavit@gmail.com";
+//		MimeMessage message=sender.createMimeMessage();
+//		MimeMessageHelper helper=new MimeMessageHelper(message);
+//		try {
+//			helper.setTo(empEmail);
+//			helper.setText("A new task has been assigned. See details below \n\nTask ID: "+newTask.getTask_id()
+//							+"\nTask Description: "+newTask.getTask_desc()
+//							+"\nStart Date: "+newTask.getStart_date()+"\nEnd Date: "+newTask.getEnd_date()
+//							+"\n\n Please complete before end date. \n\n\nRegards,\nAdmin");
+//			helper.setSubject("Task Assignment Notification");
+//		} catch (MessagingException e) {
+//			e.printStackTrace();
+//			return "Exception while sending email";
+//		}
+//		sender.send(message);
+		return "New Training Room added";
+	}
 }
