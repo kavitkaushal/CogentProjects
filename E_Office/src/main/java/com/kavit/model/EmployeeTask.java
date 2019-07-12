@@ -4,16 +4,10 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-enum status{
-	Incomplete,
-	Progressing,
-	Completed
-}
 
 @Entity
 @Table(name="task")
 public class EmployeeTask {
-
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
