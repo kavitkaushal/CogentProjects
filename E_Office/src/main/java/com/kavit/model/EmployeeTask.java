@@ -1,5 +1,7 @@
 package com.kavit.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -23,12 +25,13 @@ public class EmployeeTask {
 	@Column(nullable = false)
 	private Date end_date;
 	@Column(nullable = false)
-	private status task_status;
+	private String task_status;
+
 	public EmployeeTask() {
 		super();
 	}
 	public EmployeeTask(Long task_id, Long emp_id, String task_name, String task_desc, Date start_date,
-			Date end_date, status task_status) {
+			Date end_date, String task_status) {
 		super();
 		this.task_id = task_id;
 		this.emp_id = emp_id;
@@ -36,7 +39,7 @@ public class EmployeeTask {
 		this.task_desc = task_desc;
 		this.start_date = start_date;
 		this.end_date = end_date;
-		this.task_status = status.Incomplete;
+		this.task_status = "Incomplete";
 	}
 	public Long getTask_id() {
 		return task_id;
@@ -74,10 +77,10 @@ public class EmployeeTask {
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
-	public status getTask_status() {
+	public String getTask_status() {
 		return task_status;
 	}
-	public void setTask_status(status task_status) {
+	public void setTask_status(String task_status) {
 		this.task_status = task_status;
 	}
 }

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.kavit.dao.EmployeeRepo;
 import com.kavit.dao.EmployeeTaskRepo;
 import com.kavit.dao.LeaveRequestRepo;
 import com.kavit.dao.TrainingRoomRepo;
@@ -18,6 +20,8 @@ import com.kavit.model.*;
 @Configuration
 public class EmployeeService {
 
+	@Autowired
+	private EmployeeRepo employee;
 	@Autowired
 	private JavaMailSender sender;
 	@Autowired
@@ -46,8 +50,8 @@ public class EmployeeService {
 		try {
 			helper.setTo(empEmail);
 			helper.setText("You have booked a training room. Details below:\n\n"
-							+ "Room Number: "+newRoom.getRoom_id()+"\nBooked by Employee ID: "+newRoom.getBooked_emp_id()
-							+"\nFor date: "+newRoom.getBooked_date()
+							+ "Room Number: "+newRoom.getRoom_id()+"\nBooked by Employee ID: "+newRoom.getEmp_id()
+							+"\nFor date: "+newRoom.getBooked_until()
 							+"\n\nRegards\nAdmin");
 			helper.setSubject("Training Room Successfully Booked");
 		} catch (MessagingException e) {
@@ -57,7 +61,7 @@ public class EmployeeService {
 	}
 	
 	public void applyLeaveRequest(LeaveRequest newLeaveRequest) {
-		newLeaveRequest.setStatus("p");
+		newLeaveRequest.setStatus("Pending");
 		leaveRequest.save(newLeaveRequest);
 		String adminEmail= "ofcadmncog@gmail.com";
 		MimeMessage message=sender.createMimeMessage();
@@ -88,7 +92,7 @@ public class EmployeeService {
 		MimeMessageHelper helper=new MimeMessageHelper(message);
 		try {
 			helper.setTo(adminEmail);
-			if(empTask.getTask_status().equals(status.Progressing)) {
+			if(empTask.getTask_status().equals("In Progress")) {
 			
 				helper.setText("The assigned task has started. See details below \n\n"
 					+"Task ID: "+empTask.getTask_id()
@@ -97,7 +101,7 @@ public class EmployeeService {
 					+"\nStart Date: "+empTask.getStart_date()+"\nEnd Date: "+empTask.getEnd_date()
 					+"\n\nRegards");
 				helper.setSubject("Task Started");
-			}else if(empTask.getTask_status().equals(status.Completed)) {
+			}else if(empTask.getTask_status().equals("Completed")) {
 				helper.setText("The assigned task has completed. See details below \n\n"
 						+"Task ID: "+empTask.getTask_id()
 						+"\nEmployee Id: "+empTask.getTask_id()

@@ -9,7 +9,7 @@ public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int emp_id;
+	private Long emp_id;
 	@Column(nullable = false)
 	private String first_name;
 	@Column(nullable = false)
@@ -18,26 +18,31 @@ public class Employee {
 	@Column(nullable = false)
 	private String email_id;
 	@Column(nullable = false)
-	private Integer contact_no;
-	@ManyToOne (cascade = CascadeType.ALL)
-	private Department dept;
+	private Long contact_no;
+	@Column(nullable = false)
+	private Long dept_id;
+	@Column (nullable = false)
+	private String password;
 	public Employee() {
 		super();
 	}
-	public Employee(int emp_id, String first_name, String last_name, String email_id, Integer contact_no,
-			Department dept) {
+	
+	public Employee(Long emp_id, String first_name, String last_name, @Email String email_id, Long contact_no,
+			Long dept_id, String password) {
 		super();
 		this.emp_id = emp_id;
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.email_id = email_id;
 		this.contact_no = contact_no;
-		this.dept = dept;
+		this.dept_id = dept_id;
+		this.password = password;
 	}
-	public int getEmp_id() {
+
+	public Long getEmp_id() {
 		return emp_id;
 	}
-	public void setEmp_id(int emp_id) {
+	public void setEmp_id(Long emp_id) {
 		this.emp_id = emp_id;
 	}
 	public String getFirst_name() {
@@ -58,16 +63,28 @@ public class Employee {
 	public void setEmail_id(String email_id) {
 		this.email_id = email_id;
 	}
-	public Integer getContact_no() {
+	public Long getContact_no() {
 		return contact_no;
 	}
-	public void setContact_no(Integer contact_no) {
+	public void setContact_no(Long contact_no) {
 		this.contact_no = contact_no;
 	}
-	public Department getDept() {
-		return dept;
+
+	public Long getDept_id() {
+		return dept_id;
 	}
-	public void setDept(Department dept) {
-		this.dept = dept;
+
+	public void setDept_id(Long dept_id) {
+		this.dept_id = dept_id;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 }

@@ -15,23 +15,22 @@ import javax.persistence.Table;
 public class Department {
 	
 	@Id
-	@PrimaryKeyJoinColumn
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int dept_id;
+	private Long dept_id;
 	@Column(nullable = false)
 	private String dept_name;
 	public Department() {
 		super();
 	}
-	public Department(int dept_id, String dept_name) {
+	public Department(Long dept_id, String dept_name) {
 		super();
 		this.dept_id = dept_id;
 		this.dept_name = dept_name;
 	}
-	public int getDept_id() {
+	public Long getDept_id() {
 		return dept_id;
 	}
-	public void setDept_id(int dept_id) {
+	public void setDept_id(Long dept_id) {
 		this.dept_id = dept_id;
 	}
 	public String getDept_name() {

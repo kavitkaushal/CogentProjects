@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.kavit.model.Department;
 
-public interface DepartmentRepo extends JpaRepository<Department, Integer>{
+public interface DepartmentRepo extends JpaRepository<Department, Long>{
 
 }
