@@ -21,14 +21,13 @@ public class Employee {
 	private Long contact_no;
 	@Column(nullable = false)
 	private Long dept_id;
-	@Column (nullable = false)
-	private String password;
+
 	public Employee() {
 		super();
 	}
 	
 	public Employee(Long emp_id, String first_name, String last_name, @Email String email_id, Long contact_no,
-			Long dept_id, String password) {
+			Long dept_id) {
 		super();
 		this.emp_id = emp_id;
 		this.first_name = first_name;
@@ -36,7 +35,6 @@ public class Employee {
 		this.email_id = email_id;
 		this.contact_no = contact_no;
 		this.dept_id = dept_id;
-		this.password = password;
 	}
 
 	public Long getEmp_id() {
@@ -78,13 +76,4 @@ public class Employee {
 		this.dept_id = dept_id;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	
 }

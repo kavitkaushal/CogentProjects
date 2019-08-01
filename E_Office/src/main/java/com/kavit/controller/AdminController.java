@@ -37,7 +37,7 @@ public class AdminController {
 	@PostMapping("/addDept")
 	public String addDept(@RequestBody Department newDept) {
 		admin.addnewDepartment(newDept);
-		return "New department added";
+		return "Department Added";
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
@@ -58,15 +58,15 @@ public class AdminController {
 	}
 	
 	@DeleteMapping("/addDept/{id}")
-	public void deleteDept(@PathVariable Long id) {
-		admin.deleteDepartment(id);
+	public String deleteDept(@PathVariable Long id) {
+		return admin.deleteDepartment(id);
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/addEmp")
-	public String addNewEmp(@RequestBody Employee newEmp) {
+	public String addNewEmp(@RequestBody Employee newEmp) {  
 		admin.addNewEmployee(newEmp);
-		return "New employee added";
+		return "Employee Added";
 	}
 	
 	@GetMapping("/addEmp")
@@ -75,8 +75,8 @@ public class AdminController {
 	}
 	
 	@DeleteMapping("/addEmp/{id}")
-	public void deleteProduct(@PathVariable Long id) {
-		 admin.deleteEmployee(id);
+	public String deleteProduct(@PathVariable Long id) {
+		 return admin.deleteEmployee(id);
 	}
 	
 	@GetMapping("/updateEmp/{id}")
@@ -88,14 +88,13 @@ public class AdminController {
 	@PostMapping("/updateEmp/{id}")
 	public String updateEmployee(@RequestBody Employee newEmp, @PathVariable Long id) {
 		admin.updateEmployee(newEmp,id);
-		return "New Employee Updated";
+		return "Employee Updated";
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/addTask")
 	public String addEmpTask(@RequestBody EmployeeTask newTask) {
-		admin.addNewTask(newTask);
-		return "New Task added for employee";
+		return admin.addNewTask(newTask);
 	}
 	
 	@GetMapping("/addTask")
@@ -104,8 +103,9 @@ public class AdminController {
 	}
 	
 	@DeleteMapping("/addTask/{id}")
-	public void deleteTask(@PathVariable Long id) {
+	public String deleteTask(@PathVariable Long id) {
 		 admin.deleteTask(id);
+		 return "Task Deleted";
 	}
 	
 	@GetMapping("/updateTask/{id}")
@@ -116,8 +116,7 @@ public class AdminController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/updateTask/{id}")
 	public String updateTask(@RequestBody EmployeeTask empTask, @PathVariable Long id) {
-		admin.updateEmpTask(empTask,id);
-		return "New Task Updated";
+		return admin.updateEmpTask(empTask,id);
 	}
 	
 	@GetMapping("/approveLeave")
@@ -133,15 +132,13 @@ public class AdminController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/approveLeave/{id}")
 	public String approveLeaveRequest(@RequestBody LeaveRequest newLeaveRequest, @PathVariable Long id){
-		admin.approveLeaveRequest(newLeaveRequest, id);
-		return "Leave Request Changed";
+		return admin.approveLeaveRequest(newLeaveRequest, id);
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/addTrainingRoom")
 	public String addTrainingRoom(@RequestBody TrainingRoom newRoom) {
-		admin.addNewTrainingRoom(newRoom);
-		return "New Room added";
+		return admin.addNewTrainingRoom(newRoom);
 	}
 	
 	@GetMapping("/addTrainingRoom")
@@ -157,13 +154,16 @@ public class AdminController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/addTrainingRoom/{id}")
 	public String addTrainingRoom(@RequestBody TrainingRoom newRoom, @PathVariable Long id) {
-		admin.updateTrainingRoom(newRoom, id);
-		return "Room updated";
+		return admin.updateTrainingRoom(newRoom, id);
 	}
 	
 	@DeleteMapping("/addTrainingRoom/{id}")
 	public String deleteTrainingRoom(@PathVariable Long id) {
-		admin.deleteTrainingRoom(id);
-		return "Room Deleted";
+		return admin.deleteTrainingRoom(id);
+	}
+	
+	@GetMapping("/showRoomBooking")
+	public List<TrainingRoom> viewBookedRooms() {
+		return admin.viewBookedRooms();
 	}
 }
